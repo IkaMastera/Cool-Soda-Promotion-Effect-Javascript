@@ -12,12 +12,14 @@ let left_each_item = 100 / (list.length - 1);
 next.onclick = () => {
     active = active >= count - 1 ? 0 : active + 1;
     leftMockup = leftMockup + left_each_item;
+    carousel.classList.add('right');
     changeCarousel();
 }
 
 prev.onclick = () => {
     active = active <= 0 ? count - 1 : active - 1;
     leftMockup = leftMockup - left_each_item;
+    carousel.classList.add('right');
     changeCarousel();
 }
 
@@ -31,4 +33,14 @@ function changeCarousel(){
     list[active].classList.add('active');
     // change mockup background
     mockup.style.setProperty('--left', leftMockup + '%');
+
+    // refresh auto run
+    clearInterval(refreshInterval);
+    refreshInterval = setInterval(
+        () => next.click(), 5000
+    )
 }
+
+let refreshInterval = setInterval(
+    () => next.click(), 5000
+)
